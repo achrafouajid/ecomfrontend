@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import BreadCrumb from "../components/BreadCrumb";
 import Meta from "../components/Meta";
 import ReactStars from "react-rating-stars-component";
@@ -8,7 +8,14 @@ import Color from "../components/Color";
 import Container from "../components/Container";
 
 const OurStore = () => {
-  const { grid, setGrid } = useState(4);
+  const [grid, setGrid] = useState(4);
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+  const fetchProducts = () => {
+    setProducts([{ name: "Havels" }, { name: "Rolex" }, { name: "Cartier" }]);
+  };
   return (
     <>
       <Meta title="Our Store" />
@@ -256,7 +263,9 @@ const OurStore = () => {
             </div>
             <div className="products-list pb-5">
               <div className="d-flex gap-10 flex-wrap">
-                <ProductCard grid={grid} />
+                {products.map((product) => (
+                  <ProductCard grid={grid} product={product} />
+                ))}
               </div>
             </div>
           </div>
